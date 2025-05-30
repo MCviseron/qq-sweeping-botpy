@@ -23,8 +23,10 @@
 1. 克隆本仓库
 
    ```bash
-   git clone git@github.com:MCviseron/qq-sweeping-botpy.git
+   git clone https://github.com/MCviseron/qq-sweeping-botpy.git
    ```
+
+   如果因为网络问题克隆失败，请使用github520项目或其他上网方式连接至GitHub。
 2. 安装依赖
 
    ```bash
