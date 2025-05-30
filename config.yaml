@@ -1,6 +1,6 @@
-appid: "102728932"
-token: "AiX8pu1P3PcCxyH5cN1SZ7aanbbWcoPA"
-secret: "HQZis2CMWgr2DOZkw8KWiv8LYlyCQes6"
+appid: "102791796"
+token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
+secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
 intent:
   - at_messages
   - public_messages
