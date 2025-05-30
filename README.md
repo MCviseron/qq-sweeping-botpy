@@ -23,16 +23,13 @@
 1. 克隆本仓库
 
    ```bash
-   git clone https://github.com/yourusername/qq-sweep-bot.git
-   cd qq-sweep-bot
+   git clone git@github.com:MCviseron/qq-sweeping-botpy.git
    ```
-
 2. 安装依赖
 
    ```bash
    pip install -r requirements.txt
    ```
-
 3. 配置机器人信息
    在 `config.yaml`中填写你的机器人信息：
 
@@ -47,7 +44,6 @@
      - c2c_messages
    admin_role_id: "管理员角色ID"
    ```
-
 4. 运行机器人
 
    ```bash
@@ -94,6 +90,7 @@ secret 为高保密，QQ 开放平台只会显示第一次，而后只能重置�
 
 - `reminder_time`: 每日提醒时间
 - `message_templates`: 消息模板
+
   - `normal`: 正常提醒格式
   - `pause`: 暂停时提醒格式
 - `email_config`: 邮件配置
@@ -104,7 +101,6 @@ secret 为高保密，QQ 开放平台只会显示第一次，而后只能重置�
   - `password`: 发件人邮箱密码（授权码）
   - `subject`: 邮件主题
   - `admin_email`: 管理员提醒邮箱
-
 - `index_update_time`: 索引（轮换顺序）更新时间
 - `enabled`: 是否启用提醒
 - `sender?`: 是否已经发送过提醒
@@ -207,7 +203,6 @@ secret 为高保密，QQ 开放平台只会显示第一次，而后只能重置�
    sudo cp qqbot.service.example /etc/systemd/system/qqbot.service
    sudo nano /etc/systemd/system/qqbot.service
    ```
-
 2. 修改文件中的用户名和路径
 3. 启用并启动服务
 
@@ -216,7 +211,6 @@ secret 为高保密，QQ 开放平台只会显示第一次，而后只能重置�
    sudo systemctl enable qqbot.service
    sudo systemctl start qqbot.service
    ```
-
 4. 检查服务状态
 
    ```bash
