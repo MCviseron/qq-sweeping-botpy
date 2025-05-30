@@ -47,12 +47,7 @@ class Reminder:
                     "subject": "扫地提醒",
                     "admin_email": "your_admin_email"
                 },
-                "index_update_time": {
-                    "h": 0,
-                    "m": 0,
-                    "s": 0,
-                    "ms": 0
-                },
+                "index_update_time": "00:00:00",
                 "enabled": True,
                 "sender?": False,
                 "silent_mode": False,
