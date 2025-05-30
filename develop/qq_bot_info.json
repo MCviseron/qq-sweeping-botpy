@@ -1,0 +1,17 @@
+{
+  "channels": {
+    "扫地机器人测试频道": {
+      "guild_id": "16979429024054607855",
+      "owner_id": "13956388908516803452",
+      "member_count": 5,
+      "max_members": 300,
+      "description": "",
+      "joined_at": "2025-05-16T15:08:06+08:00",
+      "icon": "https://qq-web.cdn-go.cn/qun.qq.com_pro/4a77af80/app/create/dist/cdn/assets/images/default.png",
+      "channels": {}
+    }
+  },
+  "admin_ids": [
+    "13956388908516803452"
+  ]
+}

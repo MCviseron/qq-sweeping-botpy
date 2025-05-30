@@ -1,0 +1,9 @@
+appid: "102728932"
+token: "AiX8pu1P3PcCxyH5cN1SZ7aanbbWcoPA"
+secret: "HQZis2CMWgr2DOZkw8KWiv8LYlyCQes6"
+intent:
+  - at_messages
+  - public_messages
+  - guild_messages
+  - c2c_messages
+admin_ids: "1E716B712CBE0C14BEB03915AB998B48"

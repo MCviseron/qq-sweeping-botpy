@@ -1,0 +1,16 @@
+[Unit]
+Description=QQ Sweeping Bot
+After=network.target
+
+[Service]
+Type=simple
+User=your_username
+WorkingDirectory=/path/to/qq-botpy-v2
+ExecStart=/usr/bin/python3 /path/to/qq-botpy-v2/main.py
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target 

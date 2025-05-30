@@ -1,0 +1,20 @@
+{
+  "reminder_time": "12:00",
+  "message_templates": {
+    "normal": "今天 ({year}-{month}-{day}) 星期 {weekday} ，今天该 {name} 你扫地啦",
+    "pause": "今天( {year}-{month}-{day} ) 星期 {weekday} ，本应该是 {name} 你扫地，但轮换任务已暂停(不用扫)"
+  },
+  "email_config": {
+    "smtp_server": "smtp.qq.com",
+    "smtp_port": 465,
+    "sender_email": "3999453151@qq.com",
+    "sender_password": "fnjdbxjhiieicddc",
+    "subject": "扫地提醒",
+    "admin_email": "1025537568@qq.com"
+  },
+  "index_update_time": "00:00:00",
+  "enabled": true,
+  "sender?": false,
+  "silent_mode": false,
+  "holiday_whitelist": []
+}
