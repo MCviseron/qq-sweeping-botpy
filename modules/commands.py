@@ -11,6 +11,8 @@ from botpy.ext.cog_yaml import read
 
 from .reminder import Reminder
 
+from botpy.manage import GroupManageEvent
+
 # 配置日志
 _log = botpy_logging.get_logger()
 
@@ -140,7 +142,6 @@ class SweepingBot(botpy.Client):
 
     async def on_ready(self):
         """机器人启动时触发"""
-        _log.info(f"扫地机器人「{self.robot.name}」已启动!")
         #启动任务
         #定时提醒任务
         asyncio.create_task(self.reminder.start_reminder(self))
@@ -173,6 +174,29 @@ class SweepingBot(botpy.Client):
         help_text.append(f"{self.command_prefix}restart - 重启所有定时任务")
         
         return "\n".join(help_text)
+
+    async def on_group_add_robot(self, event: GroupManageEvent):
+        """机器人被添加到群聊"""
+        # _log.info("机器人被添加到群聊：" + str(event))
+        group_open_id = event.group_openid
+        event_id = event.event_id
+        await self.api.post_group_message(
+            group_openid=group_open_id,
+            msg_type=0,
+            event_id=event_id,
+            content=f"您好,我是{self.robot.name},我可以为您管理值日任务。\n使用{self.command_prefix}help查看可用命令"
+        )
+        if group_open_id not in self.reminder.config["group_open_ids"]:
+            self.reminder.config["group_open_ids"].append(group_open_id)
+            self.reminder.save_config()
+
+    async def on_group_del_robot(self, event:GroupManageEvent):
+        """机器人被移除群聊"""
+        # _log.info("机器人被移除群聊：" + str(event))
+        group_open_id = event.group_openid
+        if group_open_id in self.reminder.config["group_open_ids"]:
+            self.reminder.config["group_open_ids"].remove(group_open_id)
+            self.reminder.save_config()
 
     async def on_group_at_message_create(self, message: GroupMessage):
         """处理群聊消息"""
@@ -294,7 +318,7 @@ class SweepingBot(botpy.Client):
             except ValueError:
                 await message.reply(content="格式错误,请使用: /rm [m/h] [id/MM-DD]")
                 
-        # 设置提醒时间或当前值日生
+        # 设置提醒时间、索引更新时间和当前值日生
         elif content.startswith("/set "):
             try:
                 #权限检查

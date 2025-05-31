@@ -79,3 +79,299 @@ botpy.errors.AuthenticationFailedError: 接口访问源IP不在白名单
 2025-05-31 01:41:53,559	[INFO]	(reminder.py:457)start_update_index	定时索引更新已启动
 2025-05-31 01:41:53,559	[INFO]	(reminder.py:412)reminder_scheduler	下一次提醒将在 2025-05-31 12:00:00 发送,等待 37086.44 秒
 2025-05-31 01:41:53,560	[INFO]	(reminder.py:359)update_indexer	等待 80286.439053 秒后更新索引到下一个成员
+2025-05-31 02:37:29,688	[INFO]	(reminder.py:33)load_config	配置文件加载成功
+2025-05-31 02:37:29,689	[INFO]	(reminder.py:63)load_members	成员列表加载成功
+2025-05-31 02:37:29,690	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-05-31 02:37:29,690	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-05-31 02:37:29,923	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 3863
+2025-05-31 02:37:30,530	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-05-31 02:37:30,530	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-05-31 02:37:30,531	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-05-31 02:37:30,531	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-05-31 02:37:30,721	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-05-31 02:37:30,823	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-05-31 02:37:30,824	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-05-31 02:37:30,824	[INFO]	(commands.py:143)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-05-31 02:37:30,824	[INFO]	(reminder.py:445)start_reminder	定时提醒调度器已启动
+2025-05-31 02:37:30,824	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 02:37:30,824	[INFO]	(reminder.py:407)reminder_scheduler	下一次提醒将在 2025-05-31 12:00:00 发送,等待 33749.18 秒
+2025-05-31 02:37:30,824	[INFO]	(reminder.py:354)update_indexer	等待 76949.175351 秒后更新索引到下一个成员
+2025-05-31 02:45:42,486	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /current
+2025-05-31 02:45:51,542	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /status
+2025-05-31 02:46:29,719	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set index-update-time 02:47:00
+2025-05-31 02:46:43,785	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set index-time 02:47:00
+2025-05-31 02:46:43,789	[INFO]	(reminder.py:78)save_config	配置文件保存成功
+2025-05-31 02:46:43,789	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 02:46:43,789	[INFO]	(reminder.py:374)update_indexer	更新索引被取消
+2025-05-31 02:46:43,789	[INFO]	(reminder.py:354)update_indexer	等待 16.21029 秒后更新索引到下一个成员
+2025-05-31 02:47:00,010	[INFO]	(reminder.py:360)update_indexer	索引更新器触发,准备更新索引
+2025-05-31 02:47:00,010	[INFO]	(reminder.py:365)update_indexer	索引已更新:4 -> 1
+2025-05-31 02:47:00,010	[INFO]	(reminder.py:178)admin_send_email	正在连接SMTP服务器: smtp.qq.com:465
+2025-05-31 02:47:00,207	[INFO]	(reminder.py:182)admin_send_email	正在登录SMTP服务器...
+2025-05-31 02:47:00,477	[INFO]	(reminder.py:184)admin_send_email	SMTP登录成功
+2025-05-31 02:47:00,477	[INFO]	(reminder.py:186)admin_send_email	正在发送邮件到admin: 1025537568@qq.com
+2025-05-31 02:47:01,002	[INFO]	(reminder.py:188)admin_send_email	邮件发送成功
+2025-05-31 02:47:01,045	[INFO]	(reminder.py:87)save_members	成员列表保存成功
+2025-05-31 02:47:01,046	[INFO]	(reminder.py:78)save_config	配置文件保存成功
+2025-05-31 02:49:01,058	[INFO]	(reminder.py:354)update_indexer	等待 86278.94147 秒后更新索引到下一个成员
+2025-05-31 02:56:51,154	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set index-time 00:00:00
+2025-05-31 02:56:51,155	[INFO]	(reminder.py:78)save_config	配置文件保存成功
+2025-05-31 02:56:51,155	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 02:56:51,155	[INFO]	(reminder.py:374)update_indexer	更新索引被取消
+2025-05-31 02:56:51,155	[INFO]	(reminder.py:354)update_indexer	等待 75788.844881 秒后更新索引到下一个成员
+2025-05-31 02:57:12,272	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set id 4
+2025-05-31 02:57:12,273	[INFO]	(reminder.py:87)save_members	成员列表保存成功
+2025-05-31 02:57:24,830	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set id 5
+2025-05-31 02:57:24,831	[INFO]	(reminder.py:87)save_members	成员列表保存成功
+2025-05-31 02:57:32,873	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set I'd 6
+2025-05-31 02:57:39,908	[INFO]	(commands.py:420)on_c2c_message_create	收到私聊消息: /set id 2
+2025-05-31 02:57:39,908	[INFO]	(reminder.py:87)save_members	成员列表保存成功
+2025-05-31 23:31:56,568	[INFO]	(reminder.py:33)load_config	配置文件加载成功
+2025-05-31 23:31:56,569	[INFO]	(reminder.py:63)load_members	成员列表加载成功
+2025-05-31 23:31:56,570	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-05-31 23:31:56,570	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-05-31 23:31:56,804	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 7200
+2025-05-31 23:31:57,413	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-05-31 23:31:57,413	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-05-31 23:31:57,413	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-05-31 23:31:57,413	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-05-31 23:31:57,672	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-05-31 23:31:57,787	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-05-31 23:31:57,788	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-05-31 23:31:57,788	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-05-31 23:31:57,788	[INFO]	(reminder.py:445)start_reminder	定时提醒调度器已启动
+2025-05-31 23:31:57,788	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 23:31:57,788	[INFO]	(reminder.py:407)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 44882.21 秒
+2025-05-31 23:31:57,788	[INFO]	(reminder.py:354)update_indexer	等待 1682.211605 秒后更新索引到下一个成员
+2025-05-31 23:33:58,095	[INFO]	(reminder.py:33)load_config	配置文件加载成功
+2025-05-31 23:33:58,095	[INFO]	(reminder.py:63)load_members	成员列表加载成功
+2025-05-31 23:33:58,096	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-05-31 23:33:58,096	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-05-31 23:33:58,298	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 7079
+2025-05-31 23:33:58,961	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-05-31 23:33:58,961	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-05-31 23:33:58,961	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-05-31 23:33:58,963	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-05-31 23:33:59,148	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-05-31 23:33:59,271	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-05-31 23:33:59,271	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-05-31 23:33:59,271	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-05-31 23:33:59,272	[INFO]	(reminder.py:445)start_reminder	定时提醒调度器已启动
+2025-05-31 23:33:59,272	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 23:33:59,272	[INFO]	(reminder.py:407)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 44760.73 秒
+2025-05-31 23:33:59,272	[INFO]	(reminder.py:354)update_indexer	等待 1560.727481 秒后更新索引到下一个成员
+2025-05-31 23:35:47,275	[INFO]	(commands.py:191)on_group_at_message_create	收到群聊消息:  /help
+2025-05-31 23:39:32,145	[INFO]	(reminder.py:33)load_config	配置文件加载成功
+2025-05-31 23:39:32,146	[INFO]	(reminder.py:63)load_members	成员列表加载成功
+2025-05-31 23:39:32,147	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-05-31 23:39:32,147	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-05-31 23:39:32,379	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 6744
+2025-05-31 23:39:32,978	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-05-31 23:39:32,979	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-05-31 23:39:32,979	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-05-31 23:39:32,979	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-05-31 23:39:33,174	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-05-31 23:39:33,279	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-05-31 23:39:33,280	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-05-31 23:39:33,280	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-05-31 23:39:33,280	[INFO]	(reminder.py:445)start_reminder	定时提醒调度器已启动
+2025-05-31 23:39:33,280	[INFO]	(reminder.py:452)start_update_index	定时索引更新已启动
+2025-05-31 23:39:33,281	[INFO]	(reminder.py:407)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 44426.72 秒
+2025-05-31 23:39:33,281	[INFO]	(reminder.py:354)update_indexer	等待 1226.718231 秒后更新索引到下一个成员
+2025-05-31 23:39:49,605	[INFO]	(commands.py:187)on_group_add_robot	group_open_id: 8BF01A761B30AEDABD3A85D2FD8E4F58
+2025-06-01 00:00:39,135	[ERROR]	(main.py:45)main	启动失败: name 'group_id' is not defined
+2025-06-01 00:00:39,136	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+  File "D:\Program\qq-botpy-v2\main.py", line 32, in main
+    client = SweepingBot(intents=intents)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program\qq-botpy-v2\modules\commands.py", line 94, in __init__
+    self.reminder = Reminder(self, group_id)
+                                   ^^^^^^^^
+NameError: name 'group_id' is not defined
+
+2025-06-01 00:04:34,860	[ERROR]	(main.py:45)main	启动失败: SweepingBot.get_group_id() missing 1 required positional argument: 'event'
+2025-06-01 00:04:34,861	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+  File "D:\Program\qq-botpy-v2\main.py", line 32, in main
+    client = SweepingBot(intents=intents)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program\qq-botpy-v2\modules\commands.py", line 94, in __init__
+    self.reminder = Reminder(self, self.get_group_id())
+                                   ^^^^^^^^^^^^^^^^^^^
+TypeError: SweepingBot.get_group_id() missing 1 required positional argument: 'event'
+
+2025-06-01 00:05:02,501	[ERROR]	(reminder.py:36)load_config	加载配置文件失败: [Errno 2] No such file or directory: "D:\\Program\\qq-botpy-v2\\groupids\\<member 'group_openid' of 'GroupManageEvent' objects>\\config.json"
+2025-06-01 00:05:02,501	[ERROR]	(reminder.py:81)save_config	保存配置文件失败: [Errno 2] No such file or directory: "D:\\Program\\qq-botpy-v2\\groupids\\<member 'group_openid' of 'GroupManageEvent' objects>\\config.json"
+2025-06-01 00:05:02,501	[ERROR]	(reminder.py:66)load_members	加载成员列表失败: [Errno 2] No such file or directory: "D:\\Program\\qq-botpy-v2\\groupids\\<member 'group_openid' of 'GroupManageEvent' objects>\\member.json"
+2025-06-01 00:05:02,501	[ERROR]	(reminder.py:90)save_members	保存成员列表失败: [Errno 2] No such file or directory: "D:\\Program\\qq-botpy-v2\\groupids\\<member 'group_openid' of 'GroupManageEvent' objects>\\member.json"
+2025-06-01 00:05:02,502	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:05:02,502	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:05:02,718	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 5214
+2025-06-01 00:05:03,364	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:05:03,364	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:05:03,365	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:05:03,365	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:05:03,557	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:05:03,670	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:05:03,670	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:05:03,671	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:05:03,671	[INFO]	(reminder.py:446)start_reminder	定时提醒调度器已启动
+2025-06-01 00:05:03,671	[INFO]	(reminder.py:453)start_update_index	定时索引更新已启动
+2025-06-01 00:05:03,671	[INFO]	(reminder.py:408)reminder_scheduler	下一次提醒将在 2025-06-01 08:00:00 发送,等待 28496.33 秒
+2025-06-01 00:05:03,671	[INFO]	(reminder.py:355)update_indexer	等待 86096.328212 秒后更新索引到下一个成员
+2025-06-01 00:06:42,902	[INFO]	(reminder.py:22)__init__	<member 'group_openid' of 'GroupManageEvent' objects>
+2025-06-01 00:06:42,903	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:06:42,903	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:06:42,904	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:06:42,904	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:06:43,133	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 5114
+2025-06-01 00:06:43,763	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:06:43,763	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:06:43,764	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:06:43,764	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:06:43,956	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:06:44,055	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:06:44,055	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:06:44,055	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:06:44,055	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:06:44,057	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:06:44,057	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 42795.94 秒
+2025-06-01 00:06:44,057	[INFO]	(reminder.py:356)update_indexer	等待 85995.94283 秒后更新索引到下一个成员
+2025-06-01 00:08:46,261	[INFO]	(reminder.py:22)__init__	<member 'group_openid' of 'GroupManageEvent' objects>
+2025-06-01 00:08:46,262	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:08:46,262	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:08:46,263	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:08:46,263	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:08:46,459	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 4990
+2025-06-01 00:08:47,064	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:08:47,065	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:08:47,065	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:08:47,065	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:08:47,259	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:08:47,366	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:08:47,366	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:08:47,367	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:08:47,367	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:08:47,367	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:08:47,367	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 42672.63 秒
+2025-06-01 00:08:47,367	[INFO]	(reminder.py:356)update_indexer	等待 85872.632234 秒后更新索引到下一个成员
+2025-06-01 00:08:59,929	[INFO]	(reminder.py:22)__init__	<member 'group_openid' of 'GroupManageEvent' objects>
+2025-06-01 00:08:59,929	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:08:59,929	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:08:59,931	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:08:59,931	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:09:00,147	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 4977
+2025-06-01 00:09:00,706	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:09:00,707	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:09:00,707	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:09:00,707	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:09:00,933	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:09:01,056	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:09:01,057	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:09:01,057	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:09:01,057	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:09:01,057	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:09:01,058	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 42658.94 秒
+2025-06-01 00:09:01,058	[INFO]	(reminder.py:356)update_indexer	等待 85858.941238 秒后更新索引到下一个成员
+2025-06-01 00:12:49,719	[ERROR]	(main.py:45)main	启动失败: SweepingBot.get_group_id() missing 1 required positional argument: 'event'
+2025-06-01 00:12:49,720	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+  File "D:\Program\qq-botpy-v2\main.py", line 32, in main
+    client = SweepingBot(intents=intents)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program\qq-botpy-v2\modules\commands.py", line 94, in __init__
+    group_id = self.get_group_id()
+               ^^^^^^^^^^^^^^^^^^^
+TypeError: SweepingBot.get_group_id() missing 1 required positional argument: 'event'
+
+2025-06-01 00:13:10,451	[INFO]	(reminder.py:22)__init__	<member 'group_openid' of 'GroupManageEvent' objects>
+2025-06-01 00:13:10,452	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:13:10,452	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:13:10,454	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:13:10,454	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:13:10,691	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 4726
+2025-06-01 00:13:11,305	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:13:11,305	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:13:11,305	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:13:11,305	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:13:11,544	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:13:11,646	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:13:11,646	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:13:11,646	[INFO]	(commands.py:146)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:13:11,646	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:13:11,647	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:13:11,647	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 42408.35 秒
+2025-06-01 00:13:11,647	[INFO]	(reminder.py:356)update_indexer	等待 85608.352383 秒后更新索引到下一个成员
+2025-06-01 00:15:35,342	[ERROR]	(main.py:45)main	启动失败: 'SweepingBot' object has no attribute 'get_group_id'
+2025-06-01 00:15:35,344	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+  File "D:\Program\qq-botpy-v2\main.py", line 32, in main
+    client = SweepingBot(intents=intents)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program\qq-botpy-v2\modules\commands.py", line 94, in __init__
+    group_id = self.get_group_id(event=GroupManageEvent)
+               ^^^^^^^^^^^^^^^^^
+AttributeError: 'SweepingBot' object has no attribute 'get_group_id'
+
+2025-06-01 00:16:09,638	[ERROR]	(main.py:45)main	启动失败: Reminder.__init__() missing 1 required positional argument: 'group_id'
+2025-06-01 00:16:09,639	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+  File "D:\Program\qq-botpy-v2\main.py", line 32, in main
+    client = SweepingBot(intents=intents)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program\qq-botpy-v2\modules\commands.py", line 94, in __init__
+    self.reminder = Reminder(self)
+                    ^^^^^^^^^^^^^^
+TypeError: Reminder.__init__() missing 1 required positional argument: 'group_id'
+
+2025-06-01 00:16:40,328	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:16:40,328	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:16:40,329	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:16:40,329	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:16:40,554	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 4516
+2025-06-01 00:16:41,157	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:16:41,157	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:16:41,158	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:16:41,158	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:16:41,416	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:16:41,541	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:16:41,541	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:16:41,541	[INFO]	(commands.py:145)on_ready	扫地机器人「开发用test-测试中」已启动!
+2025-06-01 00:16:41,541	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:16:41,541	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:16:41,541	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 42198.46 秒
+2025-06-01 00:16:41,543	[INFO]	(reminder.py:356)update_indexer	等待 85398.456747 秒后更新索引到下一个成员
+2025-06-01 00:17:23,950	[INFO]	(commands.py:189)on_group_add_robot	group_open_id: {'event_id': 'GROUP_ADD_ROBOT:e25f73e0-a64b-4904-9acc-1d9eadf733ff', 'timestamp': '1748708248', 'group_openid': '8BF01A761B30AEDABD3A85D2FD8E4F58', 'op_member_openid': 'D4197F8C3775AEE030075A69AA6E5E2C'}
+2025-06-01 00:17:23,951	[INFO]	(reminder.py:80)save_config	配置文件保存成功
+2025-06-01 00:27:48,545	[INFO]	(reminder.py:35)load_config	配置文件加载成功
+2025-06-01 00:27:48,545	[INFO]	(reminder.py:65)load_members	成员列表加载成功
+2025-06-01 00:27:48,546	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:27:48,546	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:27:48,771	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 3848
+2025-06-01 00:27:49,375	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:27:49,376	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:27:49,376	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:27:49,376	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:27:49,556	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:27:49,662	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:27:49,663	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:27:49,663	[INFO]	(reminder.py:447)start_reminder	定时提醒调度器已启动
+2025-06-01 00:27:49,663	[INFO]	(reminder.py:454)start_update_index	定时索引更新已启动
+2025-06-01 00:27:49,663	[INFO]	(reminder.py:409)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 41530.34 秒
+2025-06-01 00:27:49,663	[INFO]	(reminder.py:356)update_indexer	等待 84730.336572 秒后更新索引到下一个成员
+2025-06-01 00:27:56,713	[INFO]	(commands.py:195)on_group_del_robot	机器人被移除群聊：{'event_id': 'GROUP_DEL_ROBOT:0d81f5d1-26ea-44bf-8ab6-c3c57ac30e40', 'timestamp': '1748708881', 'group_openid': '8BF01A761B30AEDABD3A85D2FD8E4F58', 'op_member_openid': 'D4197F8C3775AEE030075A69AA6E5E2C'}
+2025-06-01 00:27:56,714	[INFO]	(reminder.py:80)save_config	配置文件保存成功
+2025-06-01 00:28:14,310	[INFO]	(commands.py:180)on_group_add_robot	机器人被添加到群聊：{'event_id': 'GROUP_ADD_ROBOT:c999654c-3986-4b04-8c77-fb1277c679ca', 'timestamp': '1748708899', 'group_openid': '8BF01A761B30AEDABD3A85D2FD8E4F58', 'op_member_openid': 'D4197F8C3775AEE030075A69AA6E5E2C'}
+2025-06-01 00:28:15,048	[INFO]	(reminder.py:80)save_config	配置文件保存成功
+2025-06-01 00:29:23,930	[INFO]	(reminder.py:34)load_config	配置文件加载成功
+2025-06-01 00:29:23,930	[INFO]	(reminder.py:64)load_members	成员列表加载成功
+2025-06-01 00:29:23,931	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2025-06-01 00:29:23,931	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2025-06-01 00:29:24,124	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 3753
+2025-06-01 00:29:24,753	[INFO]	(client.py:181)_bot_init	[botpy] 程序启动...
+2025-06-01 00:29:24,753	[INFO]	(connection.py:60)multi_run	[botpy] 最大并发连接数: 1, 启动会话数: 1
+2025-06-01 00:29:24,753	[INFO]	(client.py:242)bot_connect	[botpy] 会话启动中...
+2025-06-01 00:29:24,753	[INFO]	(gateway.py:115)ws_connect	[botpy] 启动中...
+2025-06-01 00:29:25,038	[INFO]	(gateway.py:142)ws_identify	[botpy] 鉴权中...
+2025-06-01 00:29:25,150	[INFO]	(gateway.py:85)on_message	[botpy] 机器人「开发用test-测试中」启动成功！
+2025-06-01 00:29:25,150	[INFO]	(gateway.py:223)_send_heart	[botpy] 心跳维持启动...
+2025-06-01 00:29:25,150	[INFO]	(reminder.py:446)start_reminder	定时提醒调度器已启动
+2025-06-01 00:29:25,150	[INFO]	(reminder.py:453)start_update_index	定时索引更新已启动
+2025-06-01 00:29:25,150	[INFO]	(reminder.py:408)reminder_scheduler	下一次提醒将在 2025-06-01 12:00:00 发送,等待 41434.85 秒
+2025-06-01 00:29:25,150	[INFO]	(reminder.py:355)update_indexer	等待 84634.84997 秒后更新索引到下一个成员
