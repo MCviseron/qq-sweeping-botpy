@@ -7,3 +7,4 @@ intent:
   - guild_messages
   - c2c_messages
 admin_ids: "1E716B712CBE0C14BEB03915AB998B48"
+Version: "2.1.0"
