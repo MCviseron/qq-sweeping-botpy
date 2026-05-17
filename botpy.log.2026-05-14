@@ -1,11 +1,11 @@
-2026-05-17 01:18:55,652	[INFO]	(reminder.py:34)load_config	配置文件加载成功
-2026-05-17 01:18:55,660	[INFO]	(reminder.py:64)load_members	成员列表加载成功
-2026-05-17 01:18:55,663	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
-2026-05-17 01:18:55,663	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
-2026-05-17 01:18:55,974	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 3459
-2026-05-17 01:18:56,288	[ERROR]	(http.py:76)_handle_response	[botpy] 接口请求异常，请求连接: https://api.sgroup.qq.com/users/@me, 错误代码: 401, 返回内容: {'message': '接口访问源IP不在白名单', 'code': 11298, 'err_code': 40023002, 'trace_id': '56d6489f87c95921550c767b8718a1d4'}, trace_id:56d6489f87c95921550c767b8718a1d4
-2026-05-17 01:18:56,289	[ERROR]	(main.py:45)main	启动失败: 接口访问源IP不在白名单
-2026-05-17 01:18:56,332	[ERROR]	(main.py:46)main	Traceback (most recent call last):
+2026-05-14 18:25:13,625	[INFO]	(reminder.py:34)load_config	配置文件加载成功
+2026-05-14 18:25:13,628	[INFO]	(reminder.py:64)load_members	成员列表加载成功
+2026-05-14 18:25:13,628	[INFO]	(main.py:35)main	机器人启动成功,开始运行...
+2026-05-14 18:25:13,629	[INFO]	(client.py:162)_bot_login	[botpy] 登录机器人账号中...
+2026-05-14 18:25:13,973	[INFO]	(robot.py:65)update_access_token	[botpy] access_token expires_in 6683
+2026-05-14 18:25:14,582	[ERROR]	(http.py:76)_handle_response	[botpy] 接口请求异常，请求连接: https://api.sgroup.qq.com/users/@me, 错误代码: 401, 返回内容: {'message': '接口访问源IP不在白名单', 'code': 11298, 'err_code': 40023002, 'trace_id': '4f6025c4bf41cf891f0f06c96822966f'}, trace_id:4f6025c4bf41cf891f0f06c96822966f
+2026-05-14 18:25:14,582	[ERROR]	(main.py:45)main	启动失败: 接口访问源IP不在白名单
+2026-05-14 18:25:14,584	[ERROR]	(main.py:46)main	Traceback (most recent call last):
   File "D:\Program\qq-botpy-v2\main.py", line 36, in main
     client.run(appid=config["appid"], secret=config["secret"])
   File "D:\Python\Python312\Lib\site-packages\botpy\client.py", line 135, in run

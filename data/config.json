@@ -16,5 +16,8 @@
   "enabled": true,
   "sender?": false,
   "silent_mode": false,
-  "holiday_whitelist": []
+  "holiday_whitelist": [],
+  "group_open_ids": [
+    "8BF01A761B30AEDABD3A85D2FD8E4F58"
+  ]
 }

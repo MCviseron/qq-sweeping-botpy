@@ -18,6 +18,7 @@ _log = botpy_logging.get_logger()
 class Reminder:
     def __init__(self, client):
         self.client = client
+        # group_data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "groupids", str(group_id))
         self.config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "config.json")
         self.members_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "member.json")
         self.load_config()
@@ -47,12 +48,7 @@ class Reminder:
                     "subject": "扫地提醒",
                     "admin_email": "your_admin_email"
                 },
-                "index_update_time": {
-                    "h": 0,
-                    "m": 0,
-                    "s": 0,
-                    "ms": 0
-                },
+                "index_update_time": "00:00:00",
                 "enabled": True,
                 "sender?": False,
                 "silent_mode": False,
