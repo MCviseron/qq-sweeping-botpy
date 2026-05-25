@@ -1,0 +1,36 @@
+Cent OS 7.9 QQ-BotPy 扫地机器人配置
+1.准备服务器:镜像选择Cent OS / OpenCloudOS/veLinux2.0 CentOS等系列版本
+2.环境搭建/配置流程：
+·使用 yum install conda 安装conda python版本控制管理器
+·使用 yum install screen 安装屏幕控制
+·conda create -n {name} python=3.9.12 创建python3.9.12的环境
+`conda init 初始化conda环境
+·source ~/.bashrc 激活conda环境
+·使用screen -S qqbotpy-{地点}创建一个新的窗口{地点}为标注谁是谁的机器人
+·无git请使用yum install git 下载安装git
+·上传qqbotpy项目或者拉取：git clone https://github.com/MCviseron/qq-sweeping-botpy.git
+·进入项目文件夹 cd qq-sweeping-botpy/
+·使用 conda activate qqbotpy 激活qqbotpy的py环境
+·pyhton -V 确认Python版本是否正确 3.9.12
+·使用 pip install -r requirements.txt 安装机器人所需python包依赖
+·bash start.sh 或者 python main.py 尝试启动机器人
+·若启动成功，则可以开始配置data文件夹下的config.json和member.json文件
+·config.json 这个是扫地提醒的相关配置
+·若启动失败，请详见下点
+3.显示配置文件不存在：
+·检查项目根目录下是否存在config.yaml文件 [注意: 请与data路径下的config.json 文件进行区分！]若不存在请前往github下载对应的文件。亦应该确定是否有其他缺省。
+·存在请检查内部配置数据是否异常，异常请重新配置。
+4.显示配置文件缺少必要的appid或secret：
+·机器人需要在QQ开放平台【以下简称QT】获取相应的机器人的appid、token、secret 相关字段放在项目根目录下config.yaml中，请打开 QT 创建机器人并获取它的相关id填入即可，若还未创建机器人，请见第5点。
+5.创建机器人：
+·现如今机器人创建步骤因为OpenClaw的出现已经被大幅简化，在QT点击创建机器人可一键创建一个“小龙虾”机器人模板，复制显示的secret
+·然后进入QT首页，选择机器人，点击刚刚创建的机器人的高级设置完善机器人的相关资料
+·配置沙箱，以登录QT的账号创建测试群，选择QQ群配置到这个群，消息列表也可以配置。
+·然后基本成功实现
+6.显示请求错误 接口访问源IP不在白名单：
+·目前处于沙箱环境中，QT 规定：“凡未正式上线的机器人，均需要在沙箱环境中进行运行。”目前项目无需上线也可运行，但准备后续上线官方机器人，无需配置的人手动配置，所以请勿自行上架该机器人。
+·沙箱环境需要配置IP白名单才可以在服务器登录QQ的机器人API，进入QT {此处默认做好QT的相关平台配置和创建机器人}进入要配置的对应机器人的[高级设置]选择[开发管理],找到[IP白名单]编辑后添加即可。
+·提示：若也无[IP白名单]此选项，则您还未配置QT的对应机器人的沙箱环境，配置了沙箱环境后才会有IP白名单。
+7.群聊提示：你没有权限执行'/send'命令：
+·机器人应用了用户ID(member_openid)识别用户是否为管理用户，每个人的ID是唯一的，确定的，故需要配置管理的ID来确定是你谁。
+·每个用户ID可以在发送一条管理消息后在服务器后台查看对应的用户ID，将用户ID复制并放到config.yaml中的admin_ids字段中即可匹配为管理员。

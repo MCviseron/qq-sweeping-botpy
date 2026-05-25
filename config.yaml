@@ -1,10 +1,10 @@
-appid: "102791796"
-token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
-secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
+appid: ""
+token: ""
+secret: ""
 intent:
   - at_messages
   - public_messages
   - guild_messages
   - c2c_messages
-admin_ids: "1E716B712CBE0C14BEB03915AB998B48"
+admin_ids: ""
 Version: "2.1.0"

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux CentOS 系列系统配置文档 —— QQ-BotPy 扫地机器人</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            padding: 50px 60px;
+        }
+
+        /* === 标题样式 === */
+        .doc-title {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a90d9;
+            margin-bottom: 10px;
+        }
+        .doc-title h1 {
+            font-size: 28px;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .doc-title .subtitle {
+            font-size: 14px;
+            color: #888;
+        }
+        .doc-title .subtitle span {
+            color: #4a90d9;
+            font-weight: bold;
+        }
+
+        /* === 目录 === */
+        .toc {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 24px 30px;
+            margin: 30px 0;
+            border: 1px solid #e8edf4;
+        }
+        .toc h2 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 14px;
+            border: none;
+            padding: 0;
+        }
+        .toc ul {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+            column-gap: 30px;
+        }
+        .toc ul li {
+            padding: 4px 0;
+            font-size: 14px;
+            break-inside: avoid;
+        }
+        .toc ul li a {
+            color: #4a90d9;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .toc ul li a:hover {
+            color: #e74c3c;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .toc ul {
+                columns: 1;
+            }
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 18px;
+            padding-left: 14px;
+            border-left: 5px solid #4a90d9;
+        }
+        h2 .step-badge {
+            display: inline-block;
+            background: #4a90d9;
+            color: #fff;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        h3 {
+            font-size: 18px;
+            color: #34495e;
+            margin-top: 26px;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 3px solid #85b8e0;
+        }
+        h4 {
+            font-size: 16px;
+            color: #445566;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 14px;
+            font-size: 15px;
+        }
+
+        ul, ol {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 18px;
+        }
+        ul li, ol li {
+            position: relative;
+            padding: 5px 0 5px 22px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 4px;
+            color: #4a90d9;
+            font-weight: bold;
+        }
+        ol {
+            counter-reset: item;
+        }
+        ol li {
+            padding-left: 32px;
+        }
+        ol li::before {
+            content: counter(item) ".";
+            counter-increment: item;
+            position: absolute;
+            left: 4px;
+            color: #4a90d9;
+            font-weight: bold;
+        }
+
+        code {
+            font-family: "Fira Code", "JetBrains Mono", "Consolas", "Courier New", monospace;
+            background: #f0f4f8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #e74c3c;
+        }
+        pre {
+            background: #1e2a3a;
+            color: #e8e8e8;
+            padding: 18px 22px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 14px 0 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: 14px;
+        }
+
+        blockquote {
+            background: #fef9e7;
+            border-left: 5px solid #f1c40f;
+            padding: 14px 22px;
+            margin: 14px 0 20px 0;
+            border-radius: 0 8px 8px 0;
+            color: #5a4a1a;
+            font-size: 15px;
+        }
+        blockquote strong {
+            color: #c0392b;
+        }
+
+        .note {
+            background: #eaf4fc;
+            border-left: 5px solid #3498db;
+            padding: 14px 22px;
+            margin: 14px 0 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+        .note strong {
+            color: #2980b9;
+        }
+        .warning {
+            background: #fdf0e0;
+            border-left: 5px solid #e67e22;
+            padding: 14px 22px;
+            margin: 14px 0 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+        }
+        .warning strong {
+            color: #d35400;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e6ed;
+            margin: 30px 0;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px 0;
+            font-size: 14px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        table thead {
+            background: #4a90d9;
+            color: #fff;
+        }
+        table th, table td {
+            padding: 10px 16px;
+            text-align: left;
+            border: 1px solid #e0e6ed;
+        }
+        table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        table tbody tr:hover {
+            background: #eef4fa;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e6ed;
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 18px;
+            }
+            .doc-title h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== 标题 ===== -->
+        <div class="doc-title">
+            <h1>Linux CentOS 系列系统配置文档</h1>
+            <p class="subtitle">QQ-BotPy 扫地机器人 &nbsp;|&nbsp; 适用系统：Cent OS 7.9+ / OpenCloudOS / veLinux2.0 CentOS 等 &nbsp;|&nbsp; <span>v2.1.0</span></p>
+        </div>
+
+        <!-- ===== 目录 ===== -->
+        <div class="toc">
+            <h2>📑 目录</h2>
+            <ul>
+                <li><a href="#s1">一、文档概述</a></li>
+                <li><a href="#s2">二、服务器准备与系统环境</a></li>
+                <li><a href="#s3">三、环境搭建与配置流程</a></li>
+                <li><a href="#s4">四、项目部署与启动</a></li>
+                <li><a href="#s5">五、显示配置文件不存在怎么办</a></li>
+                <li><a href="#s6">六、缺少 appid 或 secret 怎么办</a></li>
+                <li><a href="#s7">七、创建机器人完整流程</a></li>
+                <li><a href="#s8">八、IP 白名单错误怎么办</a></li>
+                <li><a href="#s9">九、没有权限执行命令怎么办</a></li>
+                <li><a href="#s10">十、项目结构说明</a></li>
+                <li><a href="#s11">十一、配置文件详解</a></li>
+                <li><a href="#s12">十二、命令使用指南</a></li>
+                <li><a href="#s13">十三、部署为 Systemd 系统服务</a></li>
+                <li><a href="#s14">十四、常见问题与错误处理</a></li>
+                <li><a href="#s15">十五、注意事项与最佳实践</a></li>
+            </ul>
+        </div>
+
+        <!-- ===== 第一章 ===== -->
+        <h2 id="s1"><span class="step-badge">一</span> 文档概述</h2>
+        <p>本文档为 <strong>Linux CentOS 系列系统</strong> 下，从零开始部署 <strong>QQ-BotPy 扫地机器人</strong> 的全流程配置指南。涵盖服务器准备、环境搭建、机器人创建、项目部署、配置详解以及常见问题排查等所有环节。</p>
+        <p><strong>适用镜像版本：</strong></p>
+        <ul>
+            <li>Cent OS 7.9+</li>
+            <li>OpenCloudOS</li>
+            <li>veLinux 2.0 CentOS 系列</li>
+            <li>其他 CentOS/RHEL 衍生发行版</li>
+        </ul>
+        <hr>
+
+        <!-- ===== 第二章 ===== -->
+        <h2 id="s2"><span class="step-badge">二</span> 服务器准备与系统环境</h2>
+        <h3>2.1 服务器基础要求</h3>
+        <table>
+            <thead><tr><th>项目</th><th>要求</th></tr></thead>
+            <tbody>
+                <tr><td>操作系统</td><td>CentOS 7.9 及以上系列版本</td></tr>
+                <tr><td>网络</td><td>拥有公网 IP 或可访问外网（用于 API 通信）</td></tr>
+                <tr><td>内存</td><td>推荐 ≥ 1GB</td></tr>
+                <tr><td>磁盘</td><td>≥ 10GB 可用空间</td></tr>
+            </tbody>
+        </table>
+        <h3>2.2 系统环境依赖</h3>
+        <ul>
+            <li><strong>Python 3.9.12</strong>（推荐使用 conda 管理）</li>
+            <li><strong>screen</strong>（终端会话管理工具）</li>
+            <li><strong>git</strong>（代码拉取工具，可选）</li>
+        </ul>
+        <hr>
+
+        <!-- ===== 第三章 ===== -->
+        <h2 id="s3"><span class="step-badge">三</span> 环境搭建与配置流程</h2>
+        <h3>3.1 安装 Conda（Python 版本管理器）</h3>
+        <pre><code>yum install conda -y</code></pre>
+        <div class="note">
+            <strong>提示：</strong>若 yum 源中无 conda，可手动安装 Miniconda：<br>
+            <code>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</code><br>
+            <code>bash Miniconda3-latest-Linux-x86_64.sh</code><br>
+            <code>source ~/.bashrc</code>
+        </div>
+
+        <h3>3.2 安装 Screen（终端会话管理）</h3>
+        <pre><code>yum install screen -y</code></pre>
+        <p>Screen 用于在后台保持机器人运行，即使 SSH 断开也不会停止。</p>
+
+        <h3>3.3 创建 Conda 虚拟环境</h3>
+        <pre><code>conda create -n qqbotpy python=3.9.12 -y</code></pre>
+        <p><strong>参数说明：</strong></p>
+        <ul>
+            <li><code>qqbotpy</code> —— 环境名称（可自定义）</li>
+            <li><code>python=3.9.12</code> —— 指定 Python 版本（必须使用 3.9.12）</li>
+        </ul>
+
+        <h3>3.4 激活 Conda 环境</h3>
+        <pre><code>conda activate qqbotpy</code></pre>
+        <p>验证 Python 版本：</p>
+        <pre><code>python -V
+# 应输出：Python 3.9.12</code></pre>
+        <p>若提示命令未找到，请先执行：</p>
+        <pre><code>source ~/.bashrc</code></pre>
+        <hr>
+
+        <!-- ===== 第四章 ===== -->
+        <h2 id="s4"><span class="step-badge">四</span> 项目部署与启动</h2>
+        <h3>4.1 拉取项目</h3>
+        <pre><code># 方式一：使用 git 克隆（推荐）
+git clone https://github.com/MCviseron/qq-sweeping-botpy.git
+
+# 若 GitHub 连接失败，请使用 GitHub 520 或其他代理方式
+# 方式二：手动上传项目文件至服务器</code></pre>
+
+        <h3>4.2 进入项目目录</h3>
+        <pre><code>cd qq-sweeping-botpy/</code></pre>
+
+        <h3>4.3 使用 Screen 创建独立会话（可选但推荐）</h3>
+        <pre><code>screen -S qqbotpy-{地点}</code></pre>
+        <p><strong>参数说明：</strong><code>{地点}</code> 用于标注不同机器人的识别名称，例如：</p>
+        <ul>
+            <li><code>screen -S qqbotpy-beijing</code></li>
+            <li><code>screen -S qqbotpy-shanghai</code></li>
+        </ul>
+
+        <h3>4.4 激活 Python 环境并安装依赖</h3>
+        <pre><code>conda activate qqbotpy
+pip install -r requirements.txt</code></pre>
+        <p><strong>requirements.txt 包含以下依赖：</strong></p>
+        <table>
+            <thead><tr><th>包名</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td>qq-botpy>=1.2.1</td><td>QQ 官方机器人框架</td></tr>
+                <tr><td>pyyaml>=6.0</td><td>YAML 配置文件解析</td></tr>
+                <tr><td>asyncio>=3.4.3</td><td>异步 IO 支持</td></tr>
+                <tr><td>requests>=2.28.0</td><td>HTTP 请求库</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.5 启动机器人</h3>
+        <pre><code># 方式一：使用启动脚本
+bash start.sh
+
+# 方式二：直接运行
+python main.py</code></pre>
+
+        <h3>4.6 启动成功后的操作</h3>
+        <p>启动成功时，控制台会输出日志信息，表示机器人已正常运行。此时可以开始配置 <code>data</code> 文件夹下的配置文件。</p>
+        <div class="warning"><strong>注意：</strong>若启动失败，请参考后续章节排查问题。</div>
+        <hr>
+
+        <!-- ===== 第五章 ===== -->
+        <h2 id="s5"><span class="step-badge">五</span> 显示配置文件不存在怎么办</h2>
+        <h3>5.1 检查项目根目录下的 config.yaml</h3>
+        <p>请确认项目根目录（<code>qq-sweeping-botpy/</code>）下是否存在 <code>config.yaml</code> 文件。</p>
+        <div class="warning">
+            <strong>⚠️ 重要提示：</strong><br>
+            <code>config.yaml</code>（项目根目录）≠ <code>data/config.json</code>（data 目录下）<br>
+            两个文件功能不同，不可混用
+        </div>
+
+        <h3>5.2 若 config.yaml 不存在</h3>
+        <ul>
+            <li>前往 GitHub 项目仓库下载对应文件：<a href="https://github.com/MCviseron/qq-sweeping-botpy" target="_blank">https://github.com/MCviseron/qq-sweeping-botpy</a></li>
+            <li>或从其他正常运行的机器人处复制</li>
+        </ul>
+
+        <h3>5.3 检查 data 目录下的配置文件</h3>
+        <p>确保 <code>data/config.json</code> 和 <code>data/member.json</code> 文件存在且格式正确。</p>
+
+        <h3>5.4 检查文件内容是否异常</h3>
+        <p>打开 <code>config.yaml</code>，确认：</p>
+        <ul>
+            <li>YAML 格式缩进正确（使用空格，勿使用 Tab）</li>
+            <li>各字段值不为空</li>
+            <li>无乱码或多余字符</li>
+        </ul>
+        <p>格式异常请重新配置或从项目仓库获取原始文件覆盖。</p>
+        <hr>
+
+        <!-- ===== 第六章 ===== -->
+        <h2 id="s6"><span class="step-badge">六</span> 显示配置文件缺少必要的 appid 或 secret 怎么办</h2>
+        <h3>6.1 问题说明</h3>
+        <p>当启动机器人时提示"配置文件缺少必要的 appid 或 secret"，表明 <code>config.yaml</code> 中缺少 QQ 机器人身份认证信息。</p>
+
+        <h3>6.2 解决方案</h3>
+        <p>机器人需要在 <strong>QQ 开放平台</strong>（以下简称 QT）获取以下三个关键字段：</p>
+        <table>
+            <thead><tr><th>字段</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td><code>appid</code></td><td>机器人应用 ID</td></tr>
+                <tr><td><code>token</code></td><td>机器人令牌</td></tr>
+                <tr><td><code>secret</code></td><td>机器人密钥（仅首次创建时显示）</td></tr>
+            </tbody>
+        </table>
+        <p>将这些字段填入项目根目录下的 <code>config.yaml</code> 中：</p>
+        <pre><code>appid: "你的 appid"
+token: "你的 token"
+secret: "你的 secret"</code></pre>
+
+        <h3>6.3 配置文件完整示例（config.yaml）</h3>
+        <pre><code>appid: "102791796"
+token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
+secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
+intent:
+  - at_messages
+  - public_messages
+  - guild_messages
+  - c2c_messages
+admin_ids: "管理员角色ID"
+Version: "2.1.0"</code></pre>
+        <p>若还未创建机器人，请参考 <a href="#s7">第七章</a>。</p>
+        <hr>
+
+        <!-- ===== 第七章 ===== -->
+        <h2 id="s7"><span class="step-badge">七</span> 创建机器人完整流程（QQ 开放平台）</h2>
+        <h3>7.1 进入 QQ 开放平台</h3>
+        <p>访问 <a href="https://q.qq.com/" target="_blank">https://q.qq.com/</a>，使用 QQ 账号登录。</p>
+
+        <h3>7.2 创建机器人</h3>
+        <ul>
+            <li>点击"创建机器人"按钮</li>
+            <li>由于 OpenClaw 的引入，创建流程已被大幅简化</li>
+            <li>系统将一键创建一个"小龙虾"机器人模板</li>
+            <li>创建成功后，<strong>复制显示的 secret（此为一次性显示，请务必保存！）</strong></li>
+        </ul>
+
+        <h3>7.3 完善机器人信息</h3>
+        <ul>
+            <li>进入 QQ 开放平台首页</li>
+            <li>选择"机器人"管理</li>
+            <li>点击刚刚创建的机器人</li>
+            <li>进入"高级设置"完善机器人相关资料（头像、名称、简介等）</li>
+        </ul>
+
+        <h3>7.4 配置沙箱环境</h3>
+        <blockquote>QQ 开放平台规定：凡未正式上线的机器人，均需要在沙箱环境中运行。</blockquote>
+        <p>目前本项目无需上线也可正常运行。<strong>注意：请勿自行上架该机器人。</strong></p>
+        <p><strong>沙箱配置步骤：</strong></p>
+        <ol>
+            <li>以登录 QQ 开放平台的账号创建一个测试 QQ 群</li>
+            <li>进入机器人管理 → 沙箱配置</li>
+            <li>选择刚才创建的测试 QQ 群进行关联</li>
+            <li>消息列表也可根据需要配置</li>
+        </ol>
+
+        <h3>7.5 获取机器人凭证</h3>
+        <p>在机器人详情页获取：</p>
+        <ul>
+            <li><strong>AppID</strong> —— 直接复制</li>
+            <li><strong>Token</strong> —— 直接复制</li>
+            <li><strong>Secret</strong> —— 若之前未保存，可重置获取</li>
+        </ul>
+        <p>将以上信息填入 <code>config.yaml</code>。</p>
+        <hr>
+
+        <!-- ===== 第八章 ===== -->
+        <h2 id="s8"><span class="step-badge">八</span> 请求错误：接口访问源 IP 不在白名单怎么办</h2>
+        <h3>8.1 问题说明</h3>
+        <p>当机器人日志中显示"接口访问源 IP 不在白名单"时，说明服务器 IP 未被 QQ 开放平台授权。</p>
+
+        <h3>8.2 解决方案</h3>
+        <ol>
+            <li>进入 QQ 开放平台</li>
+            <li>选择对应的机器人</li>
+            <li>进入"高级设置" → "开发管理"</li>
+            <li>找到"IP 白名单"选项</li>
+            <li>点击编辑，添加服务器公网 IP 地址</li>
+            <li>保存生效</li>
+        </ol>
+
+        <h3>8.3 获取服务器 IP</h3>
+        <p>在服务器执行以下命令获取公网 IP：</p>
+        <pre><code>curl ip.sb
+# 或
+curl ifconfig.me</code></pre>
+
+        <h3>8.4 注意事项</h3>
+        <ul>
+            <li>沙箱环境<strong>必须</strong>配置 IP 白名单才能调用 QQ 机器人 API</li>
+            <li>如果服务器 IP 发生变更，需要同步更新白名单</li>
+            <li>支持添加多个 IP 地址（用换行分隔）</li>
+        </ul>
+        <hr>
+
+        <!-- ===== 第九章 ===== -->
+        <h2 id="s9"><span class="step-badge">九</span> 群聊提示：你没有权限执行 '命令' 怎么办</h2>
+        <h3>9.1 问题说明</h3>
+        <p>机器人应用了用户 ID（<code>member_openid</code>）来识别用户是否为管理员。每个用户的 <code>member_openid</code> 是唯一的，需要通过配置来确认为管理员。</p>
+
+        <h3>9.2 获取用户 ID</h3>
+        <ol>
+            <li>在群聊中发送一条管理消息（例如 <code>/status</code>）</li>
+            <li>在服务器后台查看日志，找到对应的用户 <code>member_openid</code></li>
+            <li>将获取到的 ID 复制</li>
+        </ol>
+
+        <h3>9.3 配置管理员</h3>
+        <p>将获取的 <code>member_openid</code> 填入 <code>config.yaml</code> 中的 <code>admin_ids</code> 字段：</p>
+        <pre><code>admin_ids: "1E716B712CBE0C14BEB03915AB998B48"</code></pre>
+        <p>支持填写多个管理员 ID，用逗号分隔：</p>
+        <pre><code>admin_ids: "ID1,ID2,ID3"</code></pre>
+        <hr>
+
+        <!-- ===== 第十章 ===== -->
+        <h2 id="s10"><span class="step-badge">十</span> 项目结构说明</h2>
+        <pre><code>qq-botpy-v2/
+├── config.yaml              # 机器人主配置文件（appid/token/secret）
+├── data/                    # 数据目录
+│   ├── config.json          # 扫地提醒功能配置（时间/模板/邮件等）
+│   └── member.json          # 成员名单配置
+├── main.py                  # 主程序入口
+├── modules/                 # 模块目录
+│   ├── __init__.py          # 包初始化文件
+│   ├── commands.py          # 命令处理模块
+│   └── reminder.py          # 提醒管理模块
+├── README.md                # 项目说明文档
+├── requirements.txt         # Python 依赖包列表
+├── start.bat                # Windows 启动脚本
+├── start.sh                 # Linux/MacOS 启动脚本
+├── qqbot.service.example    # Systemd 服务文件示例
+└── botpy.log                # 运行日志文件</code></pre>
+        <hr>
+
+        <!-- ===== 第十一章 ===== -->
+        <h2 id="s11"><span class="step-badge">十一</span> 配置文件详解</h2>
+
+        <h3>11.1 config.yaml —— 机器人主配置</h3>
+        <p><strong>文件位置：</strong>项目根目录 / <code>config.yaml</code></p>
+        <p><strong>参数说明：</strong></p>
+        <table>
+            <thead><tr><th>参数</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td><code>appid</code></td><td>机器人应用 ID，QQ 开放平台获取</td></tr>
+                <tr><td><code>token</code></td><td>机器人令牌，QQ 开放平台获取</td></tr>
+                <tr><td><code>secret</code></td><td>机器人密钥，QQ 开放平台获取（仅首次显示）</td></tr>
+                <tr><td><code>intent</code></td><td>监听的权限列表</td></tr>
+                <tr><td style="padding-left:32px;"><code>at_messages</code></td><td>接收 @机器人的消息</td></tr>
+                <tr><td style="padding-left:32px;"><code>public_messages</code></td><td>接收群聊消息</td></tr>
+                <tr><td style="padding-left:32px;"><code>guild_messages</code></td><td>接收频道消息</td></tr>
+                <tr><td style="padding-left:32px;"><code>c2c_messages</code></td><td>接收私聊消息</td></tr>
+                <tr><td><code>admin_ids</code></td><td>管理员用户 ID（member_openid）</td></tr>
+                <tr><td><code>Version</code></td><td>机器人版本号</td></tr>
+            </tbody>
+        </table>
+        <p><strong>完整示例：</strong></p>
+        <pre><code>appid: "102791796"
+token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
+secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
+intent:
+  - at_messages
+  - public_messages
+  - guild_messages
+  - c2c_messages
+admin_ids: "1E716B712CBE0C14BEB03915AB998B48"
+Version: "2.1.0"</code></pre>
+
+        <h3>11.2 data/config.json —— 扫地提醒功能配置</h3>
+        <p><strong>文件位置：</strong><code>data/config.json</code></p>
+        <p><strong>参数说明：</strong></p>
+        <table>
+            <thead><tr><th>参数</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td><code>reminder_time</code></td><td>每日提醒时间，格式：HH:MM</td></tr>
+                <tr><td><code>message_templates</code></td><td>消息模板</td></tr>
+                <tr><td style="padding-left:32px;"><code>normal</code></td><td>正常提醒模板（可用变量：{year}{month}{day}{weekday}{name}）</td></tr>
+                <tr><td style="padding-left:32px;"><code>pause</code></td><td>暂停时提醒模板</td></tr>
+                <tr><td><code>email_config</code></td><td>邮件配置</td></tr>
+                <tr><td style="padding-left:32px;"><code>smtp_server</code></td><td>SMTP 服务器地址</td></tr>
+                <tr><td style="padding-left:32px;"><code>smtp_port</code></td><td>SMTP 端口（465/587）</td></tr>
+                <tr><td style="padding-left:32px;"><code>sender_email</code></td><td>发件人邮箱</td></tr>
+                <tr><td style="padding-left:32px;"><code>sender_password</code></td><td>邮箱授权码（非登录密码）</td></tr>
+                <tr><td style="padding-left:32px;"><code>subject</code></td><td>邮件主题</td></tr>
+                <tr><td style="padding-left:32px;"><code>admin_email</code></td><td>管理员通知邮箱</td></tr>
+                <tr><td><code>index_update_time</code></td><td>索引更新时间，格式：HH:MM:SS</td></tr>
+                <tr><td><code>enabled</code></td><td>是否启用提醒（true/false）</td></tr>
+                <tr><td><code>sender?</code></td><td>是否已发送过提醒</td></tr>
+                <tr><td><code>silent_mode</code></td><td>是否开启静默模式（true/false）</td></tr>
+                <tr><td><code>holiday_whitelist</code></td><td>假期白名单列表</td></tr>
+                <tr><td><code>group_open_ids</code></td><td>授权群聊的 openid 列表</td></tr>
+            </tbody>
+        </table>
+        <p><strong>完整示例：</strong></p>
+        <pre><code>{
+  "reminder_time": "12:00",
+  "message_templates": {
+    "normal": "今天 ({year}-{month}-{day}) 星期 {weekday} ，今天该 {name} 你扫地啦",
+    "pause": "今天( {year}-{month}-{day} ) 星期 {weekday} ，本应该是 {name} 你扫地，但轮换任务已暂停(不用扫)"
+  },
+  "email_config": {
+    "smtp_server": "smtp.qq.com",
+    "smtp_port": 465,
+    "sender_email": "3999453151@qq.com",
+    "sender_password": "fnjdbxjhiieicddc",
+    "subject": "扫地提醒",
+    "admin_email": "1025537568@qq.com"
+  },
+  "index_update_time": "00:00:00",
+  "enabled": true,
+  "sender?": false,
+  "silent_mode": false,
+  "holiday_whitelist": [],
+  "group_open_ids": [
+    "8BF01A761B30AEDABD3A85D2FD8E4F58"
+  ]
+}</code></pre>
+
+        <h3>11.3 data/member.json —— 成员名单配置</h3>
+        <p><strong>文件位置：</strong><code>data/member.json</code></p>
+        <p><strong>参数说明：</strong></p>
+        <table>
+            <thead><tr><th>参数</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td><code>members</code></td><td>成员列表（数组）</td></tr>
+                <tr><td style="padding-left:32px;"><code>id</code></td><td>成员 ID（数字编号）</td></tr>
+                <tr><td style="padding-left:32px;"><code>name</code></td><td>成员显示名称</td></tr>
+                <tr><td style="padding-left:32px;"><code>qq_id</code></td><td>成员 QQ 号</td></tr>
+                <tr><td><code>current_index</code></td><td>当前轮换到的成员索引（从 0 开始）</td></tr>
+                <tr><td><code>last_reminder_date</code></td><td>上次提醒日期，格式：YYYY-MM-DD</td></tr>
+            </tbody>
+        </table>
+        <p><strong>完整示例：</strong></p>
+        <pre><code>{
+  "members": [
+    { "id": 1, "name": "张三", "qq_id": "123456789" },
+    { "id": 2, "name": "李四", "qq_id": "987654321" }
+  ],
+  "current_index": 0,
+  "last_reminder_date": "2025-05-26"
+}</code></pre>
+        <hr>
+
+        <!-- ===== 第十二章 ===== -->
+        <h2 id="s12"><span class="step-badge">十二</span> 命令使用指南</h2>
+        <h3>12.1 命令前缀说明</h3>
+        <p>QQ 平台官方指令统一使用 <code>/</code> 作为前缀。此前缀由 QQ 平台固定设置，不可更改。例如：<code>/help</code>、<code>/status</code>、<code>/send</code>。</p>
+
+        <h3>12.2 普通命令</h3>
+        <table>
+            <thead><tr><th>命令</th><th>功能</th></tr></thead>
+            <tbody>
+                <tr><td><code>/help</code></td><td>显示帮助信息</td></tr>
+                <tr><td><code>/status</code></td><td>查看机器人当前状态</td></tr>
+                <tr><td><code>/current</code></td><td>显示当前值日人员</td></tr>
+                <tr><td><code>/list m</code></td><td>列出所有成员</td></tr>
+                <tr><td><code>/list h</code></td><td>列出假期白名单</td></tr>
+            </tbody>
+        </table>
+
+        <h3>12.3 管理员命令</h3>
+        <table>
+            <thead><tr><th>命令</th><th>功能</th></tr></thead>
+            <tbody>
+                <tr><td><code>/addm [名字] [QQ号]</code></td><td>添加新成员</td></tr>
+                <tr><td><code>/addh [MM-DD]</code></td><td>添加假期（格式：月月-日日）</td></tr>
+                <tr><td><code>/rm m [QQ号]</code></td><td>删除成员</td></tr>
+                <tr><td><code>/rm h [MM-DD]</code></td><td>删除假期</td></tr>
+                <tr><td><code>/set time [HH:MM]</code></td><td>设置每日提醒时间</td></tr>
+                <tr><td><code>/set index-time [HH:MM:SS]</code></td><td>设置索引更新时间</td></tr>
+                <tr><td><code>/set id [1,2,3···]</code></td><td>设置当前值日人员</td></tr>
+                <tr><td><code>/on</code></td><td>启用提醒功能</td></tr>
+                <tr><td><code>/off</code></td><td>禁用提醒功能</td></tr>
+                <tr><td><code>/silent on</code></td><td>开启静默模式</td></tr>
+                <tr><td><code>/silent off</code></td><td>关闭静默模式</td></tr>
+                <tr><td><code>/send</code></td><td>手动触发提醒</td></tr>
+                <tr><td><code>/next</code></td><td>切换到下一个值日成员（可选随机模式）</td></tr>
+                <tr><td><code>/reset</code></td><td>重置轮换顺序，从第一个成员开始</td></tr>
+                <tr><td><code>/restart</code></td><td>重启所有定时任务</td></tr>
+            </tbody>
+        </table>
+
+        <h3>12.4 使用示例</h3>
+        <pre><code># 查看帮助信息
+/help
+
+# 添加新成员
+/addm 张三 123456789
+
+# 设置提醒时间为早上 8:00
+/set time 08:00
+
+# 查看当前值日人员
+/current
+
+# 手动触发提醒
+/send</code></pre>
+
+        <h3>12.5 错误信息</h3>
+        <p>当指令执行失败时，机器人会返回相应的错误提示：</p>
+        <table>
+            <thead><tr><th>错误类型</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td>格式错误</td><td>指令参数格式不正确</td></tr>
+                <tr><td>权限错误</td><td>用户没有执行该指令的权限</td></tr>
+                <tr><td>参数错误</td><td>提供的参数无效或不存在</td></tr>
+                <tr><td>系统错误</td><td>机器人内部处理出错</td></tr>
+            </tbody>
+        </table>
+        <hr>
+
+        <!-- ===== 第十三章 ===== -->
+        <h2 id="s13"><span class="step-badge">十三</span> 部署为 Systemd 系统服务</h2>
+        <p>在 Linux 系统上，可以使用 Systemd 将机器人部署为系统服务，实现开机自启和崩溃自动恢复。</p>
+
+        <h3>13.1 复制服务文件</h3>
+        <pre><code>sudo cp qqbot.service.example /etc/systemd/system/qqbot.service</code></pre>
+
+        <h3>13.2 修改服务文件</h3>
+        <pre><code>sudo nano /etc/systemd/system/qqbot.service</code></pre>
+        <p>修改以下内容：</p>
+        <pre><code>[Unit]
+Description=QQ Sweeping Bot
+After=network.target
+
+[Service]
+Type=simple
+User=你的系统用户名          # 修改此处
+WorkingDirectory=/path/to/qq-botpy-v2  # 修改为实际路径
+ExecStart=/usr/bin/python3 /path/to/qq-botpy-v2/main.py  # 修改路径
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+        <div class="note">
+            <strong>提示：</strong>若使用 conda 环境，ExecStart 改为：<br>
+            <code>ExecStart=/bin/bash -c 'source ~/.bashrc && conda activate qqbotpy && python /path/to/qq-botpy-v2/main.py'</code>
+        </div>
+
+        <h3>13.3 重载并启动服务</h3>
+        <pre><code>sudo systemctl daemon-reload
+sudo systemctl enable qqbot.service    # 设置开机自启
+sudo systemctl start qqbot.service     # 启动服务</code></pre>
+
+        <h3>13.4 管理服务</h3>
+        <table>
+            <thead><tr><th>命令</th><th>功能</th></tr></thead>
+            <tbody>
+                <tr><td><code>sudo systemctl status qqbot.service</code></td><td>查看服务状态</td></tr>
+                <tr><td><code>sudo systemctl stop qqbot.service</code></td><td>停止服务</td></tr>
+                <tr><td><code>sudo systemctl restart qqbot.service</code></td><td>重启服务</td></tr>
+                <tr><td><code>sudo systemctl disable qqbot.service</code></td><td>取消开机自启</td></tr>
+            </tbody>
+        </table>
+
+        <h3>13.5 查看日志</h3>
+        <pre><code>sudo journalctl -u qqbot.service -f    # 实时查看日志</code></pre>
+        <hr>
+
+        <!-- ===== 第十四章 ===== -->
+        <h2 id="s14"><span class="step-badge">十四</span> 常见问题与错误处理</h2>
+
+        <h3>14.1 启动失败：ModuleNotFoundError</h3>
+        <ul>
+            <li><strong>原因：</strong>未安装依赖包或依赖安装不完整</li>
+            <li><strong>解决：</strong></li>
+        </ul>
+        <pre><code>conda activate qqbotpy
+pip install -r requirements.txt</code></pre>
+
+        <h3>14.2 启动失败：YAML 格式错误</h3>
+        <ul>
+            <li><strong>原因：</strong><code>config.yaml</code> 缩进格式有误</li>
+            <li><strong>解决：</strong>使用空格缩进（禁止使用 Tab），确保缩进层级正确</li>
+        </ul>
+
+        <h3>14.3 日志中显示 API 请求超时</h3>
+        <ul>
+            <li><strong>原因：</strong>网络不稳定或服务器无法访问 QQ API</li>
+            <li><strong>解决：</strong>
+                <ul>
+                    <li>检查服务器网络连接</li>
+                    <li>确保 DNS 解析正常</li>
+                    <li>若在国内服务器，一般无需代理</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>14.4 机器人不响应群聊消息</h3>
+        <ul>
+            <li><strong>原因：</strong>
+                <ul>
+                    <li>沙箱未配置测试群</li>
+                    <li>权限配置（intent）不全</li>
+                    <li>群聊 openid 未在 <code>config.json</code> 的 <code>group_open_ids</code> 中</li>
+                </ul>
+            </li>
+            <li><strong>解决：</strong>
+                <ul>
+                    <li>确认沙箱配置中已添加测试群</li>
+                    <li>检查 <code>config.yaml</code> 的 intent 配置</li>
+                    <li>在 <code>data/config.json</code> 的 <code>group_open_ids</code> 中添加群聊 openid</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>14.5 邮件发送失败</h3>
+        <ul>
+            <li><strong>原因：</strong>
+                <ul>
+                    <li>SMTP 配置错误</li>
+                    <li>邮箱授权码过期</li>
+                    <li>邮箱未开启 SMTP 服务</li>
+                </ul>
+            </li>
+            <li><strong>解决：</strong>
+                <ul>
+                    <li>确认 SMTP 服务器地址和端口正确</li>
+                    <li>重新获取邮箱授权码</li>
+                    <li>确保邮箱已开启 POP3/SMTP 服务</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>14.6 conda 命令未找到</h3>
+        <pre><code>source ~/.bashrc
+# 或重新安装 Miniconda</code></pre>
+        <hr>
+
+        <!-- ===== 第十五章 ===== -->
+        <h2 id="s15"><span class="step-badge">十五</span> 注意事项与最佳实践</h2>
+
+        <h3>15.1 安全注意事项</h3>
+        <ul>
+            <li>妥善保管 QQ 开放平台的 secret（仅首次创建时显示）</li>
+            <li>不要将 <code>config.yaml</code> 中的敏感信息提交到公开代码仓库</li>
+            <li>建议使用单独的系统用户运行机器人</li>
+            <li>定期更换邮箱授权码</li>
+        </ul>
+
+        <h3>15.2 运维建议</h3>
+        <ul>
+            <li>使用 Screen 或 Systemd 保持机器人后台运行</li>
+            <li>定期检查 <code>botpy.log</code> 日志文件</li>
+            <li>定时备份 <code>data/</code> 目录下的配置文件</li>
+            <li>更新前先备份当前配置</li>
+        </ul>
+
+        <h3>15.3 关于沙箱环境</h3>
+        <ul>
+            <li>目前项目无需上线即可正常运行</li>
+            <li>未正式上线的机器人须在沙箱环境中运行</li>
+            <li><strong>请勿自行上架该机器人</strong></li>
+            <li>沙箱环境需配置 IP 白名单</li>
+        </ul>
+
+        <h3>15.4 配置格式要求</h3>
+        <table>
+            <thead><tr><th>项目</th><th>格式要求</th></tr></thead>
+            <tbody>
+                <tr><td>时间格式</td><td>严格遵循 HH:MM（24小时制）</td></tr>
+                <tr><td>日期格式</td><td>严格遵循 MM-DD（月月-日日）</td></tr>
+                <tr><td>成员 ID</td><td>必须为数字</td></tr>
+                <tr><td>YAML 文件</td><td>使用空格缩进，不要使用 Tab</td></tr>
+            </tbody>
+        </table>
+
+        <h3>15.5 多机器人管理</h3>
+        <ul>
+            <li>可使用 Screen 创建多个独立会话</li>
+            <li><code>screen -S qqbotpy-{地点}</code> 命名区分</li>
+            <li>每个机器人使用独立的配置文件和目录</li>
+        </ul>
+
+        <div class="footer">
+            文档生成时间：<span id="generateDate"></span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generateDate').textContent = new Date().toLocaleString('zh-CN');
+    </script>
+</body>
+</html>

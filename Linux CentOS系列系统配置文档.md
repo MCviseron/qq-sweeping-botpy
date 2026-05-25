@@ -1,0 +1,735 @@
+# Linux CentOS 系列系统配置文档 —— QQ-BotPy 扫地机器人
+
+> 适用系统：Cent OS 7.9+ / OpenCloudOS / veLinux2.0 CentOS 等
+> 文档版本：v2.1.0
+> 最后更新：2026 年 5 月 25 日
+
+---
+
+## 📑 目录
+
+- [一、文档概述](#一文档概述)
+- [二、服务器准备与系统环境](#二服务器准备与系统环境)
+- [三、环境搭建与配置流程](#三环境搭建与配置流程)
+- [四、项目部署与启动](#四项目部署与启动)
+- [五、显示配置文件不存在怎么办](#五显示配置文件不存在怎么办)
+- [六、显示配置文件缺少必要的 appid 或 secret 怎么办](#六显示配置文件缺少必要的-appid-或-secret-怎么办)
+- [七、创建机器人完整流程（QQ 开放平台）](#七创建机器人完整流程qq-开放平台)
+- [八、请求错误：接口访问源 IP 不在白名单怎么办](#八请求错误接口访问源-ip-不在白名单怎么办)
+- [九、群聊提示：你没有权限执行命令怎么办](#九群聊提示你没有权限执行命令怎么办)
+- [十、项目结构说明](#十项目结构说明)
+- [十一、配置文件详解](#十一配置文件详解)
+- [十二、命令使用指南](#十二命令使用指南)
+- [十三、部署为 Systemd 系统服务](#十三部署为-systemd-系统服务)
+- [十四、常见问题与错误处理](#十四常见问题与错误处理)
+- [十五、注意事项与最佳实践](#十五注意事项与最佳实践)
+
+---
+
+## 一、文档概述
+
+本文档为 Linux CentOS 系列系统下，从零开始部署 QQ-BotPy 扫地机器人的全流程配置指南。涵盖服务器准备、环境搭建、机器人创建、项目部署、配置详解以及常见问题排查等所有环节。
+
+**适用镜像版本：**
+
+- Cent OS 7.9+
+- OpenCloudOS
+- veLinux 2.0 CentOS 系列
+- 其他 CentOS/RHEL 衍生发行版
+
+---
+
+## 二、服务器准备与系统环境
+
+### 2.1 服务器基础要求
+
+- **操作系统**：CentOS 7.9 及以上系列版本
+- **网络**：拥有公网 IP 或可访问外网（用于 API 通信）
+- **内存**：推荐 ≥ 1GB
+- **磁盘**：≥ 10GB 可用空间
+
+### 2.2 系统环境依赖
+
+- **Python 3.9.12**（推荐使用 conda 管理）
+- **screen**（终端会话管理工具）
+- **git**（代码拉取工具，可选）
+
+---
+
+## 三、环境搭建与配置流程
+
+### 3.1 安装 Conda（Python 版本管理器）
+
+```bash
+yum install conda -y
+```
+
+> **注**：若 yum 源中无 conda，可手动安装 Miniconda：
+>
+> ```bash
+> wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+> bash Miniconda3-latest-Linux-x86_64.sh
+> source ~/.bashrc
+> ```
+
+### 3.2 安装 Screen（终端会话管理）
+
+```bash
+yum install screen -y
+```
+
+Screen 用于在后台保持机器人运行，即使 SSH 断开也不会停止。
+
+### 3.3 创建 Conda 虚拟环境
+
+```bash
+conda create -n qqbotpy python=3.9.12 -y
+```
+
+**参数说明：**
+
+- `qqbotpy` —— 环境名称（可自定义）
+- `python=3.9.12` —— 指定 Python 版本（必须使用 3.9.12）
+
+### 3.4 激活 Conda 环境
+
+```bash
+conda activate qqbotpy
+```
+
+验证 Python 版本：
+
+```bash
+python -V
+# 应输出：Python 3.9.12
+```
+
+若提示命令未找到，请先执行：
+
+```bash
+source ~/.bashrc
+```
+
+---
+
+## 四、项目部署与启动
+
+### 4.1 拉取项目
+
+```bash
+# 方式一：使用 git 克隆（推荐）
+git clone https://github.com/MCviseron/qq-sweeping-botpy.git
+
+# 若 GitHub 连接失败，请使用 GitHub 520 或其他代理方式
+# 方式二：手动上传项目文件至服务器
+```
+
+### 4.2 进入项目目录
+
+```bash
+cd qq-sweeping-botpy/
+```
+
+### 4.3 使用 Screen 创建独立会话（可选但推荐）
+
+```bash
+screen -S qqbotpy-{地点}
+```
+
+**参数说明：**
+
+- `{地点}` 用于标注不同机器人的识别名称，例如：
+  - `screen -S qqbotpy-beijing`
+  - `screen -S qqbotpy-shanghai`
+
+### 4.4 激活 Python 环境并安装依赖
+
+```bash
+conda activate qqbotpy
+pip install -r requirements.txt
+```
+
+**requirements.txt 包含以下依赖：**
+
+| 包名             | 说明              |
+| ---------------- | ----------------- |
+| qq-botpy>=1.2.1  | QQ 官方机器人框架 |
+| pyyaml>=6.0      | YAML 配置文件解析 |
+| asyncio>=3.4.3   | 异步 IO 支持      |
+| requests>=2.28.0 | HTTP 请求库       |
+
+### 4.5 启动机器人
+
+```bash
+# 方式一：使用启动脚本
+bash start.sh
+
+# 方式二：直接运行
+python main.py
+```
+
+### 4.6 启动成功后的操作
+
+启动成功时，控制台会输出日志信息，表示机器人已正常运行。此时可以开始配置 `data` 文件夹下的配置文件。
+
+> 若启动失败，请参考后续章节排查问题。
+
+---
+
+## 五、显示配置文件不存在怎么办
+
+### 5.1 检查项目根目录下的 config.yaml
+
+请确认项目根目录（`qq-sweeping-botpy/`）下是否存在 `config.yaml` 文件。
+
+> **⚠️ 重要提示：**
+>
+> - `config.yaml`（项目根目录）≠ `data/config.json`（data 目录下）
+> - 两个文件功能不同，不可混用
+
+### 5.2 若 config.yaml 不存在
+
+- 前往 GitHub 项目仓库下载对应文件：[https://github.com/MCviseron/qq-sweeping-botpy](https://github.com/MCviseron/qq-sweeping-botpy)
+- 或从其他正常运行的机器人处复制
+
+### 5.3 检查 data 目录下的配置文件
+
+确保 `data/config.json` 和 `data/member.json` 文件存在且格式正确。
+
+### 5.4 检查文件内容是否异常
+
+打开 `config.yaml`，确认：
+
+- YAML 格式缩进正确（使用空格，勿使用 Tab）
+- 各字段值不为空
+- 无乱码或多余字符
+
+格式异常请重新配置或从项目仓库获取原始文件覆盖。
+
+---
+
+## 六、显示配置文件缺少必要的 appid 或 secret 怎么办
+
+### 6.1 问题说明
+
+当启动机器人时提示"配置文件缺少必要的 appid 或 secret"，表明 `config.yaml` 中缺少 QQ 机器人身份认证信息。
+
+### 6.2 解决方案
+
+机器人需要在 **QQ 开放平台**（以下简称 QT）获取以下三个关键字段：
+
+| 字段       | 说明                           |
+| ---------- | ------------------------------ |
+| `appid`  | 机器人应用 ID                  |
+| `token`  | 机器人令牌                     |
+| `secret` | 机器人密钥（仅首次创建时显示） |
+
+将这些字段填入项目根目录下的 `config.yaml` 中：
+
+```yaml
+appid: "你的 appid"
+token: "你的 token"
+secret: "你的 secret"
+```
+
+### 6.3 配置文件完整示例（config.yaml）
+
+```yaml
+appid: "102791796"
+token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
+secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
+intent:
+  - at_messages
+  - public_messages
+  - guild_messages
+  - c2c_messages
+admin_ids: "管理员角色ID"
+Version: "2.1.0"
+```
+
+> 若还未创建机器人，请参考 [第七章](#七创建机器人完整流程qq-开放平台)。
+
+---
+
+## 七、创建机器人完整流程（QQ 开放平台）
+
+### 7.1 进入 QQ 开放平台
+
+访问 [https://q.qq.com/](https://q.qq.com/)，使用 QQ 账号登录。
+
+### 7.2 创建机器人
+
+- 点击"创建机器人"按钮
+- 由于 OpenClaw 的引入，创建流程已被大幅简化
+- 系统将一键创建一个"小龙虾"机器人模板
+- 创建成功后，**复制显示的 secret（此为一次性显示，请务必保存！）**
+
+### 7.3 完善机器人信息
+
+- 进入 QQ 开放平台首页
+- 选择"机器人"管理
+- 点击刚刚创建的机器人
+- 进入"高级设置"完善机器人相关资料（头像、名称、简介等）
+
+### 7.4 配置沙箱环境
+
+QQ 开放平台规定：凡未正式上线的机器人，均需要在沙箱环境中运行。目前本项目无需上线也可正常运行。**注意：请勿自行上架该机器人。**
+
+**沙箱配置步骤：**
+
+1. 以登录 QQ 开放平台的账号创建一个测试 QQ 群
+2. 进入机器人管理 → 沙箱配置
+3. 选择刚才创建的测试 QQ 群进行关联
+4. 消息列表也可根据需要配置
+
+### 7.5 获取机器人凭证
+
+在机器人详情页获取：
+
+- **AppID** —— 直接复制
+- **Token** —— 直接复制
+- **Secret** —— 若之前未保存，可重置获取
+
+将以上信息填入 `config.yaml`。
+
+---
+
+## 八、请求错误：接口访问源 IP 不在白名单怎么办
+
+### 8.1 问题说明
+
+当机器人日志中显示"接口访问源 IP 不在白名单"时，说明服务器 IP 未被 QQ 开放平台授权。
+
+### 8.2 解决方案
+
+1. 进入 QQ 开放平台
+2. 选择对应的机器人
+3. 进入"高级设置" → "开发管理"
+4. 找到"IP 白名单"选项
+5. 点击编辑，添加服务器公网 IP 地址
+6. 保存生效
+
+### 8.3 获取服务器 IP
+
+在服务器执行以下命令获取公网 IP：
+
+```bash
+curl ip.sb
+# 或
+curl ifconfig.me
+```
+
+### 8.4 注意事项
+
+- 沙箱环境**必须**配置 IP 白名单才能调用 QQ 机器人 API
+- 如果服务器 IP 发生变更，需要同步更新白名单
+- 支持添加多个 IP 地址（用换行分隔）
+
+---
+
+## 九、群聊提示：你没有权限执行命令怎么办
+
+### 9.1 问题说明
+
+机器人应用了用户 ID（`member_openid`）来识别用户是否为管理员。每个用户的 `member_openid` 是唯一的，需要通过配置来确认为管理员。
+
+### 9.2 获取用户 ID
+
+1. 在群聊中发送一条管理消息（例如 `/status`）
+2. 在服务器后台查看日志，找到对应的用户 `member_openid`
+3. 将获取到的 ID 复制
+
+### 9.3 配置管理员
+
+将获取的 `member_openid` 填入 `config.yaml` 中的 `admin_ids` 字段：
+
+```yaml
+admin_ids: "1E716B712CBE0C14BEB03915AB998B48"
+```
+
+支持填写多个管理员 ID，用逗号分隔：
+
+```yaml
+admin_ids: "ID1,ID2,ID3"
+```
+
+---
+
+## 十、项目结构说明
+
+```
+qq-botpy-v2/
+├── config.yaml              # 机器人主配置文件（appid/token/secret）
+├── data/                    # 数据目录
+│   ├── config.json          # 扫地提醒功能配置（时间/模板/邮件等）
+│   └── member.json          # 成员名单配置
+├── main.py                  # 主程序入口
+├── modules/                 # 模块目录
+│   ├── __init__.py          # 包初始化文件
+│   ├── commands.py          # 命令处理模块
+│   └── reminder.py          # 提醒管理模块
+├── README.md                # 项目说明文档
+├── requirements.txt         # Python 依赖包列表
+├── start.bat                # Windows 启动脚本
+├── start.sh                 # Linux/MacOS 启动脚本
+├── qqbot.service.example    # Systemd 服务文件示例
+└── botpy.log                # 运行日志文件
+```
+
+---
+
+## 十一、配置文件详解
+
+### 11.1 config.yaml —— 机器人主配置
+
+**文件位置：** 项目根目录 / `config.yaml`
+
+**参数说明：**
+
+| 参数                  | 说明                                      |
+| --------------------- | ----------------------------------------- |
+| `appid`             | 机器人应用 ID，QQ 开放平台获取            |
+| `token`             | 机器人令牌，QQ 开放平台获取               |
+| `secret`            | 机器人密钥，QQ 开放平台获取（仅首次显示） |
+| `intent`            | 监听的权限列表                            |
+| ├`at_messages`     | 接收 @机器人的消息                        |
+| ├`public_messages` | 接收群聊消息                              |
+| ├`guild_messages`  | 接收频道消息                              |
+| └`c2c_messages`    | 接收私聊消息                              |
+| `admin_ids`         | 管理员用户 ID（member_openid）            |
+| `Version`           | 机器人版本号                              |
+
+**完整示例：**
+
+```yaml
+appid: "102791796"
+token: "WI8LSafgGAccT3aAS0F5vwxsSEXoKMim"
+secret: "FWn4MewEWo7Qj2LexGauEYsCWrCXsDYt"
+intent:
+  - at_messages
+  - public_messages
+  - guild_messages
+  - c2c_messages
+admin_ids: "1E716B712CBE0C14BEB03915AB998B48"
+Version: "2.1.0"
+```
+
+### 11.2 data/config.json —— 扫地提醒功能配置
+
+**文件位置：** `data/config.json`
+
+**参数说明：**
+
+| 参数                  | 说明                                                        |
+| --------------------- | ----------------------------------------------------------- |
+| `reminder_time`     | 每日提醒时间，格式：HH:MM                                   |
+| `message_templates` | 消息模板                                                    |
+| ├`normal`          | 正常提醒模板（可用变量：{year}{month}{day}{weekday}{name}） |
+| └`pause`           | 暂停时提醒模板                                              |
+| `email_config`      | 邮件配置                                                    |
+| ├`smtp_server`     | SMTP 服务器地址                                             |
+| ├`smtp_port`       | SMTP 端口（465/587）                                        |
+| ├`sender_email`    | 发件人邮箱                                                  |
+| ├`sender_password` | 邮箱授权码（非登录密码）                                    |
+| ├`subject`         | 邮件主题                                                    |
+| └`admin_email`     | 管理员通知邮箱                                              |
+| `index_update_time` | 索引更新时间，格式：HH:MM:SS                                |
+| `enabled`           | 是否启用提醒（true/false）                                  |
+| `sender?`           | 是否已发送过提醒                                            |
+| `silent_mode`       | 是否开启静默模式（true/false）                              |
+| `holiday_whitelist` | 假期白名单列表                                              |
+| `group_open_ids`    | 授权群聊的 openid 列表                                      |
+
+**完整示例：**
+
+```json
+{
+  "reminder_time": "12:00",
+  "message_templates": {
+    "normal": "今天 ({year}-{month}-{day}) 星期 {weekday} ，今天该 {name} 你扫地啦",
+    "pause": "今天( {year}-{month}-{day} ) 星期 {weekday} ，本应该是 {name} 你扫地，但轮换任务已暂停(不用扫)"
+  },
+  "email_config": {
+    "smtp_server": "smtp.qq.com",
+    "smtp_port": 465,
+    "sender_email": "3999453151@qq.com",
+    "sender_password": "fnjdbxjhiieicddc",
+    "subject": "扫地提醒",
+    "admin_email": "1025537568@qq.com"
+  },
+  "index_update_time": "00:00:00",
+  "enabled": true,
+  "sender?": false,
+  "silent_mode": false,
+  "holiday_whitelist": [],
+  "group_open_ids": [
+    "8BF01A761B30AEDABD3A85D2FD8E4F58"
+  ]
+}
+```
+
+### 11.3 data/member.json —— 成员名单配置
+
+**文件位置：** `data/member.json`
+
+**参数说明：**
+
+| 参数                   | 说明                              |
+| ---------------------- | --------------------------------- |
+| `members`            | 成员列表（数组）                  |
+| ├`id`               | 成员 ID（数字编号）               |
+| ├`name`             | 成员显示名称                      |
+| └`qq_id`            | 成员 QQ 号                        |
+| `current_index`      | 当前轮换到的成员索引（从 0 开始） |
+| `last_reminder_date` | 上次提醒日期，格式：YYYY-MM-DD    |
+
+**完整示例：**
+
+```json
+{
+  "members": [
+    { "id": 1, "name": "张三", "qq_id": "123456789" },
+    { "id": 2, "name": "李四", "qq_id": "987654321" }
+  ],
+  "current_index": 0,
+  "last_reminder_date": "2025-05-26"
+}
+```
+
+---
+
+## 十二、命令使用指南
+
+### 12.1 命令前缀说明
+
+QQ 平台官方指令统一使用 `/` 作为前缀。此前缀由 QQ 平台固定设置，不可更改。
+
+示例：`/help`、`/status`、`/send`
+
+### 12.2 普通命令
+
+| 命令         | 功能               |
+| ------------ | ------------------ |
+| `/help`    | 显示帮助信息       |
+| `/status`  | 查看机器人当前状态 |
+| `/current` | 显示当前值日人员   |
+| `/list m`  | 列出所有成员       |
+| `/list h`  | 列出假期白名单     |
+
+### 12.3 管理员命令
+
+| 命令                           | 功能                                 |
+| ------------------------------ | ------------------------------------ |
+| `/addm [名字] [QQ号]`        | 添加新成员                           |
+| `/addh [MM-DD]`              | 添加假期（格式：月月-日日）          |
+| `/rm m [QQ号]`               | 删除成员                             |
+| `/rm h [MM-DD]`              | 删除假期                             |
+| `/set time [HH:MM]`          | 设置每日提醒时间                     |
+| `/set index-time [HH:MM:SS]` | 设置索引更新时间                     |
+| `/set id [1,2,3···]`      | 设置当前值日人员                     |
+| `/on`                        | 启用提醒功能                         |
+| `/off`                       | 禁用提醒功能                         |
+| `/silent on`                 | 开启静默模式                         |
+| `/silent off`                | 关闭静默模式                         |
+| `/send`                      | 手动触发提醒                         |
+| `/next`                      | 切换到下一个值日成员（可选随机模式） |
+| `/reset`                     | 重置轮换顺序，从第一个成员开始       |
+| `/restart`                   | 重启所有定时任务                     |
+
+### 12.4 使用示例
+
+```bash
+# 查看帮助信息
+/help
+
+# 添加新成员
+/addm 张三 123456789
+
+# 设置提醒时间为早上 8:00
+/set time 08:00
+
+# 查看当前值日人员
+/current
+
+# 手动触发提醒
+/send
+```
+
+### 12.5 错误信息
+
+当指令执行失败时，机器人会返回相应的错误提示：
+
+| 错误类型 | 说明                     |
+| -------- | ------------------------ |
+| 格式错误 | 指令参数格式不正确       |
+| 权限错误 | 用户没有执行该指令的权限 |
+| 参数错误 | 提供的参数无效或不存在   |
+| 系统错误 | 机器人内部处理出错       |
+
+---
+
+## 十三、部署为 Systemd 系统服务
+
+在 Linux 系统上，可以使用 Systemd 将机器人部署为系统服务，实现开机自启和崩溃自动恢复。
+
+### 13.1 复制服务文件
+
+```bash
+sudo cp qqbot.service.example /etc/systemd/system/qqbot.service
+```
+
+### 13.2 修改服务文件
+
+```bash
+sudo nano /etc/systemd/system/qqbot.service
+```
+
+修改以下内容：
+
+```ini
+[Unit]
+Description=QQ Sweeping Bot
+After=network.target
+
+[Service]
+Type=simple
+User=你的系统用户名          # 修改此处
+WorkingDirectory=/path/to/qq-botpy-v2  # 修改为实际路径
+ExecStart=/usr/bin/python3 /path/to/qq-botpy-v2/main.py  # 修改路径
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+```
+
+> 若使用 conda 环境，ExecStart 改为：
+>
+> ```
+> ExecStart=/bin/bash -c 'source ~/.bashrc && conda activate qqbotpy && python /path/to/qq-botpy-v2/main.py'
+> ```
+
+### 13.3 重载并启动服务
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable qqbot.service    # 设置开机自启
+sudo systemctl start qqbot.service     # 启动服务
+```
+
+### 13.4 管理服务
+
+```bash
+sudo systemctl status qqbot.service    # 查看服务状态
+sudo systemctl stop qqbot.service      # 停止服务
+sudo systemctl restart qqbot.service   # 重启服务
+sudo systemctl disable qqbot.service   # 取消开机自启
+```
+
+### 13.5 查看日志
+
+```bash
+sudo journalctl -u qqbot.service -f    # 实时查看日志
+```
+
+---
+
+## 十四、常见问题与错误处理
+
+### 14.1 启动失败：ModuleNotFoundError
+
+- **原因**：未安装依赖包或依赖安装不完整
+- **解决**：
+  ```bash
+  conda activate qqbotpy
+  pip install -r requirements.txt
+  ```
+
+### 14.2 启动失败：YAML 格式错误
+
+- **原因**：`config.yaml` 缩进格式有误
+- **解决**：使用空格缩进（禁止使用 Tab），确保缩进层级正确
+
+### 14.3 日志中显示 API 请求超时
+
+- **原因**：网络不稳定或服务器无法访问 QQ API
+- **解决**：
+  - 检查服务器网络连接
+  - 确保 DNS 解析正常
+  - 若在国内服务器，一般无需代理
+
+### 14.4 机器人不响应群聊消息
+
+- **原因**：
+  - 沙箱未配置测试群
+  - 权限配置（intent）不全
+  - 群聊 openid 未在 `config.json` 的 `group_open_ids` 中
+- **解决**：
+  - 确认沙箱配置中已添加测试群
+  - 检查 `config.yaml` 的 intent 配置
+  - 在 `data/config.json` 的 `group_open_ids` 中添加群聊 openid
+
+### 14.5 邮件发送失败
+
+- **原因**：
+  - SMTP 配置错误
+  - 邮箱授权码过期
+  - 邮箱未开启 SMTP 服务
+- **解决**：
+  - 确认 SMTP 服务器地址和端口正确
+  - 重新获取邮箱授权码
+  - 确保邮箱已开启 POP3/SMTP 服务
+
+### 14.6 conda 命令未找到
+
+- **解决**：
+  ```bash
+  source ~/.bashrc
+  # 或重新安装 Miniconda
+  ```
+
+---
+
+## 十五、注意事项与最佳实践
+
+### 15.1 安全注意事项
+
+- 妥善保管 QQ 开放平台的 secret（仅首次创建时显示）
+- 不要将 `config.yaml` 中的敏感信息提交到公开代码仓库
+- 建议使用单独的系统用户运行机器人
+- 定期更换邮箱授权码
+
+### 15.2 运维建议
+
+- 使用 Screen 或 Systemd 保持机器人后台运行
+- 定期检查 `botpy.log` 日志文件
+- 定时备份 `data/` 目录下的配置文件
+- 更新前先备份当前配置
+
+### 15.3 关于沙箱环境
+
+- 目前项目无需上线即可正常运行
+- 未正式上线的机器人须在沙箱环境中运行
+- **请勿自行上架该机器人**
+- 沙箱环境需配置 IP 白名单
+
+### 15.4 配置格式要求
+
+| 项目      | 格式要求                    |
+| --------- | --------------------------- |
+| 时间格式  | 严格遵循 HH:MM（24小时制）  |
+| 日期格式  | 严格遵循 MM-DD（月月-日日） |
+| 成员 ID   | 必须为数字                  |
+| YAML 文件 | 使用空格缩进，不要使用 Tab  |
+
+### 15.5 多机器人管理
+
+- 可使用 Screen 创建多个独立会话
+- `screen -S qqbotpy-{地点}` 命名区分
+- 每个机器人使用独立的配置文件和目录
+
+---
+
+> **文档生成时间：** `<span id="date">`2026 年 5 月

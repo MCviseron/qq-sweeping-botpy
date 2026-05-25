@@ -421,6 +421,10 @@ class SweepingBot(botpy.Client):
                 return
             next_member = self.reminder.get_next_member()
             if isinstance(next_member, dict):
+                current_index = self.reminder.members_data["current_index"]
+                next_index = (current_index + 1) % len(self.reminder.members_data["members"])
+                self.reminder.members_data["current_index"] = next_index
+                self.reminder.save_members()
                 await message.reply(content=f"已切换到下一值日人员: {next_member['name']}")
             else:
                 await message.reply(content="没有可用的成员")

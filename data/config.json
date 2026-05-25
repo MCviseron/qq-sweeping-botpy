@@ -7,10 +7,10 @@
   "email_config": {
     "smtp_server": "smtp.qq.com",
     "smtp_port": 465,
-    "sender_email": "3999453151@qq.com",
-    "sender_password": "fnjdbxjhiieicddc",
+    "sender_email": "",
+    "sender_password": "",
     "subject": "扫地提醒",
-    "admin_email": "1025537568@qq.com"
+    "admin_email": ""
   },
   "index_update_time": "00:00:00",
   "enabled": true,
